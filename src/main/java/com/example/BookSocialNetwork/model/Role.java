@@ -1,6 +1,5 @@
-package com.example.BookSocialNetwork.role ;
+package com.example.BookSocialNetwork.model;
 
-import com.example.BookSocialNetwork.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;

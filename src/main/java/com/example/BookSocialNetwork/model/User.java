@@ -1,6 +1,5 @@
 package com.example.BookSocialNetwork.model;
 
-import com.example.BookSocialNetwork.role.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -27,6 +26,7 @@ public class User implements Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
+
     private String firstName;
     private String lastName;
     private String fullName = getFullName();

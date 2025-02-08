@@ -8,7 +8,6 @@ import com.example.BookSocialNetwork.repository.TokenRepository;
 import com.example.BookSocialNetwork.repository.UserRepository;
 import com.example.BookSocialNetwork.service.intf.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.util.StringBuilders;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +25,11 @@ public class AuthenticationServiceImp implements AuthenticationService {
 
     @Override
     public void register(RegistrationRequest request) {
-        var userRole =roleRepo.findByName("USER").orElseThrow(()->
+        var userRole =roleRepo.findByName("USER")
+//                todo :better exception handling
+                .orElseThrow(()->
                 new IllegalStateException("ROLE USER was not initialized"));
+
         var user = User
                 .builder()
                 .firstName(request.getFirstName())
@@ -50,6 +52,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
 
     private String generateAndSaveActivationToken(User user) {
         String generatedToken = generateActivationCode(6);
+
         var token = Token.builder()
                 .token(generatedToken)
                 .createdAt(LocalDateTime.now())
@@ -68,7 +71,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
         for (int i = 0; i < length; i++) {
             int randomIndex = secureRandom.nextInt(characters.length());
             codeBuilder.append((characters.charAt(randomIndex)));
-            return codeBuilder.toString();
         }
+            return codeBuilder.toString();
     }
 }
