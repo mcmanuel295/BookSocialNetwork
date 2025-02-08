@@ -1,11 +1,12 @@
 package com.example.BookSocialNetwork.service.impl;
 
 import com.example.BookSocialNetwork.model.RegistrationRequest;
-import com.example.BookSocialNetwork.model.Token;
-import com.example.BookSocialNetwork.model.User;
+import com.example.BookSocialNetwork.entities.Token;
+import com.example.BookSocialNetwork.entities.User;
 import com.example.BookSocialNetwork.repository.RoleRepository;
 import com.example.BookSocialNetwork.repository.TokenRepository;
 import com.example.BookSocialNetwork.repository.UserRepository;
+import com.example.BookSocialNetwork.service.EmailService;
 import com.example.BookSocialNetwork.service.intf.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +23,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepo;
     private final TokenRepository tokenRepository;
+    private final EmailService emailService;
 
     @Override
     public void register(RegistrationRequest request) {
@@ -46,6 +48,8 @@ public class AuthenticationServiceImp implements AuthenticationService {
 
     private void sendValidationEmail(User user) {
         var newToken = generateAndSaveActivationToken(user);
+
+//        todo : send email
 
         
     }

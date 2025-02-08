@@ -1,6 +1,6 @@
 package com.example.BookSocialNetwork.service;
 
-import com.example.BookSocialNetwork.model.User;
+import com.example.BookSocialNetwork.entities.User;
 import com.example.BookSocialNetwork.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

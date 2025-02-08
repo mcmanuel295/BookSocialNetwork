@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.model;
+package com.example.BookSocialNetwork.entities;
 
 
 import jakarta.persistence.*;
@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Token {
 
     @Id

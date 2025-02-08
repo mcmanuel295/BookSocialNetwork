@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.model;
+package com.example.BookSocialNetwork.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
