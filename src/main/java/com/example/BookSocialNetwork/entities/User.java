@@ -29,7 +29,7 @@ public class User implements Principal {
 
     private String firstName;
     private String lastName;
-    private String fullName = getFullName();
+    private String fullName = fullName();
     private LocalDate dateOfBirth;
 
     @Column(unique = true)
@@ -54,7 +54,7 @@ public class User implements Principal {
 
 
 
-    public String getFullName(){
+    public String fullName(){
         return firstName+" "+lastName;
     }
 

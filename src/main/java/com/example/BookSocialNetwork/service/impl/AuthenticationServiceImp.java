@@ -1,5 +1,6 @@
 package com.example.BookSocialNetwork.service.impl;
 
+import com.example.BookSocialNetwork.model.EmailTemplateName;
 import com.example.BookSocialNetwork.model.RegistrationRequest;
 import com.example.BookSocialNetwork.entities.Token;
 import com.example.BookSocialNetwork.entities.User;
@@ -8,6 +9,7 @@ import com.example.BookSocialNetwork.repository.TokenRepository;
 import com.example.BookSocialNetwork.repository.UserRepository;
 import com.example.BookSocialNetwork.service.EmailService;
 import com.example.BookSocialNetwork.service.intf.AuthenticationService;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
     private final EmailService emailService;
 
     @Override
-    public void register(RegistrationRequest request) {
+    public void register(RegistrationRequest request) throws MessagingException {
         var userRole =roleRepo.findByName("USER")
 //                todo :better exception handling
                 .orElseThrow(()->
@@ -46,12 +48,17 @@ public class AuthenticationServiceImp implements AuthenticationService {
         sendValidationEmail(user);
     }
 
-    private void sendValidationEmail(User user) {
+    private void sendValidationEmail(User user) throws MessagingException {
         var newToken = generateAndSaveActivationToken(user);
-
-//        todo : send email
-
-        
+        String activationUrl = "http://localhost:4200/activate-account";
+        emailService.sendEmail(
+                user.getEmail(),
+                user.fullName(),
+                EmailTemplateName.ACTIVATE_ACCOUNT,
+                activationUrl,
+                newToken,
+                "Account activation"
+        );
     }
 
     private String generateAndSaveActivationToken(User user) {

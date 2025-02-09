@@ -17,21 +17,11 @@ import java.util.Map;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE_MIXED;
 
-
 @Service
 @RequiredArgsConstructor
-public class EmailService   {
+public class EmailService {
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
-
-/* Parameters description
-* to - the receiver of the email,
-* username -the username of the receiver ot be out in the template,
-* emailTemplate,
-* confirmationUrl- how thw user can confirm his account,
-* activationCode - the activation code to be sent
-* String subject - the subject of the email
-**/
 
     @Async
     public void sendEmail(
@@ -39,40 +29,41 @@ public class EmailService   {
             String username,
             EmailTemplateName emailTemplateName,
             String confirmationUrl,
-            String activationCode,
+            String activation_code,
             String subject
     ) throws MessagingException {
         String templateName;
 
         if (emailTemplateName == null) {
-            templateName = "confirm-email" ;
+            templateName = "confirm-email";
         }
         else {
             templateName = emailTemplateName.name();
         }
 
-
-        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessage mimeMessage= mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(
-                mimeMessage,
-                MULTIPART_MODE_MIXED,
+               mimeMessage,
+               MULTIPART_MODE_MIXED,
                 UTF_8.name()
         );
-
-        Map<String,Object> properties = new HashMap<>();
-        properties.put("username",username);
-        properties.put("confirmationUrl",confirmationUrl);
-        properties.put("activation_code",activationCode);
-
-        Context context = new Context();
-        context.setVariables(properties);
 
         helper.setFrom("contact@mcmanuel755.com");
         helper.setTo(to);
         helper.setSubject(subject);
 
+        Map<String,Object> properties = new HashMap<>();
+        properties.put("username", username);
+        properties.put("confirmationUrl",confirmationUrl);
+        properties.put("activation-code", activation_code);
+
+        Context context = new Context();
+        context.setVariables(properties);
+
         String template = templateEngine.process(templateName,context);
+
         helper.setText(template,true);
         mailSender.send(mimeMessage);
     }
+
 }
