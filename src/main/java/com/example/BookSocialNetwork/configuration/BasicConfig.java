@@ -1,7 +1,6 @@
 package com.example.BookSocialNetwork.configuration;
 
 import com.example.BookSocialNetwork.service.MyUserDetailsService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,10 +21,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@RequiredArgsConstructor
 public class BasicConfig {
     private final MyUserDetailsService myUserDetailsService;
     private final JwtFilter jwtFilter;
+
+    public BasicConfig(MyUserDetailsService myUserDetailsService, JwtFilter jwtFilter) {
+        this.myUserDetailsService = myUserDetailsService;
+        this.jwtFilter = jwtFilter;
+    }
 
 
     @Bean
@@ -34,15 +37,15 @@ public class BasicConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(
-                        request-> request
+                        request -> request
                                 .requestMatchers(
-                                        "/auth/**", "/v2/api-docs","v3/api-docs","v3/api-docs/**","swagger-resources",
-                                        "/swagger-resources/**","/configuration/ui","/configuration/security","/swagger-ui/**",
-                                        "webjars/**","/swagger-ui.html"
+                                        "/auth/**", "/v2/api-docs", "v3/api-docs", "v3/api-docs/**", "swagger-resources",
+                                        "/swagger-resources/**", "/configuration/ui", "/configuration/security", "/swagger-ui/**",
+                                        "webjars/**", "/swagger-ui.html"
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 )
-                .sessionManagement(session ->session
+                .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
@@ -50,7 +53,7 @@ public class BasicConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
         provider.setUserDetailsService(myUserDetailsService);
@@ -58,7 +61,7 @@ public class BasicConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
 

@@ -19,6 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@Data
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "user")
 public class User implements Principal {
@@ -62,5 +63,6 @@ public class User implements Principal {
     public String getName() {
         return email;
     }
+
 
 }
