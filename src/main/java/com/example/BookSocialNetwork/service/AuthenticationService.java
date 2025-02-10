@@ -27,9 +27,7 @@ public class AuthenticationService{
 
     public void register(RegistrationRequest request) throws MessagingException {
         var userRole =roleRepo.findByName("USER")
-//                todo :better exception handling
-                .orElseThrow(()->
-                new IllegalStateException("ROLE USER was not initialized"));
+                .orElseThrow(()-> new IllegalStateException("ROLE USER was not initialized"));
 
         var user = User
                 .builder()
