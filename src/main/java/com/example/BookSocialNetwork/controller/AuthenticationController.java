@@ -1,5 +1,6 @@
 package com.example.BookSocialNetwork.controller;
 
+import com.example.BookSocialNetwork.model.AuthenticationRequest;
 import com.example.BookSocialNetwork.model.RegistrationRequest;
 import com.example.BookSocialNetwork.service.AuthenticationService;
 import jakarta.mail.MessagingException;
@@ -24,9 +25,9 @@ public class AuthenticationController {
 
     @PostMapping("/authenticate")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<?> authenticate(@RequestBody @Valid RegistrationRequest request) throws MessagingException {
-        service.register(request);
-        return ResponseEntity.accepted().build();
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody @Valid AuthenticationRequest request) {
+        return ResponseEntity.ok( service.authenticate(request)
+        );
     }
 }
 
