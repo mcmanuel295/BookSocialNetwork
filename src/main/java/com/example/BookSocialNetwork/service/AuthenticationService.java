@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.service.impl;
+package com.example.BookSocialNetwork.service;
 
 import com.example.BookSocialNetwork.model.EmailTemplateName;
 import com.example.BookSocialNetwork.model.RegistrationRequest;
@@ -7,8 +7,6 @@ import com.example.BookSocialNetwork.entities.User;
 import com.example.BookSocialNetwork.repository.RoleRepository;
 import com.example.BookSocialNetwork.repository.TokenRepository;
 import com.example.BookSocialNetwork.repository.UserRepository;
-import com.example.BookSocialNetwork.service.EmailService;
-import com.example.BookSocialNetwork.service.intf.AuthenticationService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,14 +18,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationServiceImp implements AuthenticationService {
+public class AuthenticationService{
     private final RoleRepository roleRepo;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepo;
     private final TokenRepository tokenRepository;
     private final EmailService emailService;
 
-    @Override
     public void register(RegistrationRequest request) throws MessagingException {
         var userRole =roleRepo.findByName("USER")
 //                todo :better exception handling
