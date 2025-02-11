@@ -17,4 +17,9 @@ public class GlobalExceptionHandler {
     public ProblemDetail problemDetail(UserNotFoundException ex){
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,ex.getMessage());
     }
+
+    @ExceptionHandler(TokenNotFoundException.class)
+    private ProblemDetail problemDetail(TokenNotFoundException ex){
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,ex.getMessage());
+    }
 }
