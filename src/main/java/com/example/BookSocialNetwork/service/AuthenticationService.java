@@ -1,5 +1,7 @@
 package com.example.BookSocialNetwork.service;
 
+import com.example.BookSocialNetwork.exception.TokenNotFoundException;
+import com.example.BookSocialNetwork.exception.UserNotFoundException;
 import com.example.BookSocialNetwork.model.AuthenticationRequest;
 import com.example.BookSocialNetwork.model.AuthenticationResponse;
 import com.example.BookSocialNetwork.model.EmailTemplateName;
@@ -110,16 +112,16 @@ public class AuthenticationService{
     public void activateAccount(String token) throws MessagingException {
         Token savedToken = tokenRepository.findByToken(token)
                 .orElseThrow(()->
-                new RuntimeException("Invalid token"));
+                new TokenNotFoundException("Invalid token"));
         if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
             sendValidationEmail(savedToken.getUser());
-            throw new RuntimeException("Activation token has expired. A new token has been sent to same email address ");
+            throw new TokenNotFoundException("Activation token has expired. A new token has been sent to same email address ");
         }
 
         var user = userRepo
                 .findById(savedToken.getUser()
                         .getUserId()).orElseThrow(()->
-                        new RuntimeException("user not found"));
+                        new UserNotFoundException("user not found"));
         user.setEnabled(true);
         userRepo.save(user);
         savedToken.setValidatedAt(LocalDateTime.now());
