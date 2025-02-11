@@ -1,5 +1,7 @@
 package com.example.BookSocialNetwork.service;
 
+import com.example.BookSocialNetwork.model.AuthenticationRequest;
+import com.example.BookSocialNetwork.model.AuthenticationResponse;
 import com.example.BookSocialNetwork.model.EmailTemplateName;
 import com.example.BookSocialNetwork.model.RegistrationRequest;
 import com.example.BookSocialNetwork.entities.Token;
@@ -8,12 +10,16 @@ import com.example.BookSocialNetwork.repository.RoleRepository;
 import com.example.BookSocialNetwork.repository.TokenRepository;
 import com.example.BookSocialNetwork.repository.UserRepository;
 import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -24,6 +30,8 @@ public class AuthenticationService{
     private final UserRepository userRepo;
     private final TokenRepository tokenRepository;
     private final EmailService emailService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     public void register(RegistrationRequest request) throws MessagingException {
         var userRole =roleRepo.findByName("USER")
@@ -79,5 +87,43 @@ public class AuthenticationService{
             codeBuilder.append((characters.charAt(randomIndex)));
         }
             return codeBuilder.toString();
+    }
+
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        var auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword())
+        );
+        var claims = new HashMap<String,Object>();
+        var user = (User)auth.getPrincipal();
+        claims.put("fullName",user.fullName());
+        var jwtToken = jwtService.generateToken(claims,new MyUserDetails(user));
+        return AuthenticationResponse
+                .builder()
+                .token(jwtToken)
+                .build();
+
+     }
+
+    @Transactional
+    public void activateAccount(String token) throws MessagingException {
+        Token savedToken = tokenRepository.findByToken(token)
+                .orElseThrow(()->
+                new RuntimeException("Invalid token"));
+        if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
+            sendValidationEmail(savedToken.getUser());
+            throw new RuntimeException("Activation token has expired. A new token has been sent to same email address ");
+        }
+
+        var user = userRepo
+                .findById(savedToken.getUser()
+                        .getUserId()).orElseThrow(()->
+                        new RuntimeException("user not found"));
+        user.setEnabled(true);
+        userRepo.save(user);
+        savedToken.setValidatedAt(LocalDateTime.now());
+        tokenRepository.save(savedToken);
+
     }
 }
