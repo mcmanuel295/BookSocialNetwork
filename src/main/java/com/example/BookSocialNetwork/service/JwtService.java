@@ -3,6 +3,7 @@ package com.example.BookSocialNetwork.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,8 +13,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.function.Function;
 
+@RequiredArgsConstructor
 public class JwtService {
     private final String secretKeyString;
+    private long jwtExpiration;
 
     public JwtService() throws NoSuchAlgorithmException {
         KeyGenerator keyGen = KeyGenerator.getInstance("Hmac256");
@@ -42,6 +45,26 @@ public class JwtService {
                 .compact();
     }
 
+    public String generateToken(Map<String,Object> claim,UserDetails userDetails){
+        return buildToken(claim,userDetails,jwtExpiration);
+    }
+
+    private String buildToken(Map<String,Object> extractClaims, UserDetails userDetails, long jwtExpiration){
+        var authorities = userDetails
+                .getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList();
+        return Jwts
+                .builder()
+                .claims(extractClaims)
+                .subject(userDetails.getUsername())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis()+ jwtExpiration))
+                .claim("authorities",authorities)
+                .signWith(getKey())
+                .compact();
+    }
 
     public String extractUsername(String token) {
        return extractClaim(token,Claims::getSubject);
