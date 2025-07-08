@@ -15,8 +15,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 @RequiredArgsConstructor
 public class BookSocialNetworkApplication {
-
 	private RoleRepository roleRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BookSocialNetworkApplication.class, args);
 	}
