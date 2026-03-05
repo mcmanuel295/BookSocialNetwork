@@ -24,14 +24,7 @@ public class EmailService {
     private final SpringTemplateEngine templateEngine;
 
     @Async
-    public void sendEmail(
-            String to,
-            String username,
-            EmailTemplateName emailTemplateName,
-            String confirmationUrl,
-            String activation_code,
-            String subject
-    ) throws MessagingException {
+    public void sendEmail( String to, String username, EmailTemplateName emailTemplateName, String confirmationUrl, String activation_code, String subject) throws MessagingException {
         String templateName;
 
         if (emailTemplateName == null) {
