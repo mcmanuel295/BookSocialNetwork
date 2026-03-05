@@ -1,9 +1,6 @@
 package com.example.BookSocialNetwork.model;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +23,7 @@ public class RegistrationRequest {
     @NotBlank(message = "Email is mandatory")
     private String email;
 
-    @Size(min = 0,message = "Password should be 8 characters long minimum")
+    @Min(value = 8,message = "Password should be 8 characters long minimum")
     @NotEmpty(message = "Password is mandatory")
     @NotBlank(message = "Password is mandatory")
     private String password;
