@@ -1,25 +1,13 @@
 spring:
+  profiles:
+    active: dev
+
   application:
     name: BookSocialNetwork
-  datasource:
-    url: ${url}
-    username : ${username}
-    password :  ${password}
-    driver-class-name : com.mysql.cj.jdbc.Driver
 
   config:
     import: file:secret.properties
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-     hibernate:
-      format_sql: true
-
-springdoc:
-  default-produces-media-type: application/Json
 
 servlet:
   multipart.max-file: 50MB
