@@ -8,9 +8,9 @@ services:
       - 3306:3306
     volumes:
       - mysql_db:/var/lib/mysql
-
     networks:
-      book-network :
+      - book-network
+
   mail-dev:
     container: mail-dev-bsn
     image: maildev/maildev
@@ -21,9 +21,11 @@ services:
 
 
 volumes:
-  - mysql_db
+  - mysql_db:
+      driver: local
 networks:
-  - book-network
+  - book-network:
+      driver: bridge
 
 
 
