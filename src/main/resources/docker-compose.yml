@@ -1,13 +1,16 @@
 services:
   db:
     container_name: mysql
-    image:
+    image: mysql
     environment:
-      ◘mysql:tag
-      MYSQL_ROOT_PASSWORD :my-secret-pw
+      MYSQL_ROOT_PASSWORD : Oea75357@
     ports:
-      - 3306
+      - 3306:3306
+    volumes:
+      - mysql_db:/var/lib/mysql
 
+    networks:
+      book-network :
   mail-dev:
     container: mail-dev-bsn
     image: maildev/maildev
@@ -15,5 +18,13 @@ services:
       - 1080:1080
       - 1025:1025
       -
+
+
+volumes:
+  - mysql_db
+networks:
+  - book-network
+
+
 
 #$ docker run -p 1080:1080 -p 1025:1025 maildev/maildev
