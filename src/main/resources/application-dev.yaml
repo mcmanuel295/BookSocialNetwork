@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: ${url}
+    username: ${username}
+    password: ${password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: MYSQL
+    database-platform: org.hibernate.dialect.MYSQDIALECT
+
+  mail:
+    host: localhost
+    port: 1025
+    username: mcmanuel
+    password: mcmanuel
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          trust: "*"
+        auth: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+
+springdoc:
+  default-produces-media-type: application/Json
