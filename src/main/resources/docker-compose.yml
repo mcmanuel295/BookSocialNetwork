@@ -1,4 +1,13 @@
 services:
+  db:
+    container_name: mysql
+    image:
+    environment:
+      ◘mysql:tag
+      MYSQL_ROOT_PASSWORD :my-secret-pw
+    ports:
+      - 3306
+
   mail-dev:
     container: mail-dev-bsn
     image: maildev/maildev
