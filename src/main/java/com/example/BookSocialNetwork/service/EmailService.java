@@ -31,7 +31,7 @@ public class EmailService {
             templateName = "confirm-email";
         }
         else {
-            templateName = emailTemplateName.name();
+            templateName = emailTemplateName.getName();
         }
 
         MimeMessage mimeMessage= mailSender.createMimeMessage();
