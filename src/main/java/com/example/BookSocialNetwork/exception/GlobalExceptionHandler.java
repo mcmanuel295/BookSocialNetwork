@@ -22,4 +22,10 @@ public class GlobalExceptionHandler {
     private ProblemDetail problemDetail(TokenNotFoundException ex){
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,ex.getMessage());
     }
+
+    @ExceptionHandler(OperationNotPermittedException.class)
+    private ProblemDetail problemDetail(OperationNotPermittedException ex){
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND,ex.getMessage());
+    }
+
 }
