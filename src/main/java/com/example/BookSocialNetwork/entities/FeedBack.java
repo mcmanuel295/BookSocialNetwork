@@ -19,7 +19,7 @@ public class FeedBack {
     @GeneratedValue
     private Integer id;
 
-    private String note;
+    private Double note;
     private String comment;
 
     @ManyToOne

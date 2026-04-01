@@ -1,6 +1,7 @@
 package com.example.BookSocialNetwork.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
@@ -10,12 +11,15 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @Entity
+@Builder
 public class Books {
     @Id
     @GeneratedValue
@@ -55,4 +59,15 @@ public class Books {
     @LastModifiedBy
     @Column(insertable = false)
     private Integer lastModifiedBy;
+
+    @Transient
+    public double getRate(){
+        if (feedBacks ==null || feedBacks.isEmpty()){
+            return 0.0;
+        }
+        feedBacks.stream()
+                .mapToDouble(FeedBack::getNote)
+                .average()
+                .orElse(0.0);
+    }
 }
