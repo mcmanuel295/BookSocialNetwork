@@ -25,11 +25,11 @@ public class BookTransactionHistory {
 
     @ManyToOne
     @JoinColumn(name ="book_id")
-    private Books books;
+    private Books book;
 
 
     private boolean returned;
-    private String returnApproved;
+    private boolean returnApproved;
 
     @CreatedDate
     @Column(nullable = false,updatable = false)

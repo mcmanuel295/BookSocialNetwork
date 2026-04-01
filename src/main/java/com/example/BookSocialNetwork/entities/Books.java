@@ -11,8 +11,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @EntityListeners(AuditingEntityListener.class)
@@ -69,5 +67,6 @@ public class Books {
                 .mapToDouble(FeedBack::getNote)
                 .average()
                 .orElse(0.0);
+        return Math.round(getRate()*10.0) /10.0;
     }
 }
