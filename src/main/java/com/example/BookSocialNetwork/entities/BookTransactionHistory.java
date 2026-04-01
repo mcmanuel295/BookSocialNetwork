@@ -1,6 +1,7 @@
 package com.example.BookSocialNetwork.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
+@Builder
 public class BookTransactionHistory {
     @GeneratedValue
     private Integer id;
