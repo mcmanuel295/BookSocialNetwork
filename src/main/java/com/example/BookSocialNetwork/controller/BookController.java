@@ -2,6 +2,7 @@ package com.example.BookSocialNetwork.controller;
 
 import com.example.BookSocialNetwork.model.BookRequest;
 import com.example.BookSocialNetwork.model.BookResponse;
+import com.example.BookSocialNetwork.model.PageResponse;
 import com.example.BookSocialNetwork.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,32 @@ public class BookController {
     @GetMapping("/{book-id}")
     public ResponseEntity<BookResponse> findBookById(@Valid @PathVariable("book-id") Integer bookId){
         return ResponseEntity.ok(service.findById(bookId));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<PageResponse<BookResponse>> findAllBook(
+            @RequestParam (name = "page",defaultValue = "0", required = false) int page,
+            @RequestParam (name = "page",defaultValue = "10", required = false )int size,
+            Authentication connectedUser
+            ){
+
+        return ResponseEntity.ok(service.findAllBooks(page,size,connectedUser));
+    }
+
+    @GetMapping("/owner")
+    public ResponseEntity<PageResponse<BookResponse>> findAllBooksByOwner(
+            @RequestParam (name = "page",defaultValue = "0", required = false) int page,
+            @RequestParam (name = "page",defaultValue = "10", required = false )int size,
+            Authentication connectedUser){
+        return ResponseEntity.ok(service.findAllBooksByOwner(page,size,connectedUser));
+    }
+
+    @GetMapping("/owner")
+    public ResponseEntity<PageResponse<BookResponse>> findAllBorrowedBooks(
+            @RequestParam (name = "page",defaultValue = "0", required = false) int page,
+            @RequestParam (name = "page",defaultValue = "10", required = false )int size,
+            Authentication connectedUser){
+        return ResponseEntity.ok(service.findAllBorrowedBooks(page,size,connectedUser));
     }
 
 }
