@@ -31,6 +31,10 @@ spring:
         connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
+  application:
+    file:
+      upload:
+        photos-output-path: ./upload
 
 springdoc:
   default-produces-media-type: application/Json

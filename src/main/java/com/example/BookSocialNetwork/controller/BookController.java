@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("books")
@@ -84,6 +85,17 @@ public class BookController {
     @PatchMapping("/borrow/return/approve{book-id}")
     public ResponseEntity<Integer> approveReturnBorrowedBook(@PathVariable("book-id") Integer bookId,Authentication connectedUser){
         return ResponseEntity.ok(service.approveReturnedBorrowedBook(bookId,connectedUser));
+    }
+
+    @PostMapping(value = "/cover/{book-id",consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadBookCoverPicture(
+            @PathVariable("book-id") Integer bookId,
+//            @Parameter(),
+            @RequestPart("file")MultipartFile file,
+            Authentication connectedUser){
+
+        service.uploadBookCoverPicture(file,connectedUser,bookId);
+        return ResponseEntity.accepted().build();
     }
 
 }

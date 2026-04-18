@@ -24,8 +24,8 @@ public class FeedBack {
 
     @ManyToOne
     @JoinColumn(name = "book_id")
-
     private Books books;
+
     @CreatedDate
     @Column(nullable = false,updatable = false)
     private LocalDateTime createdDate;

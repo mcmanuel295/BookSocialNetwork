@@ -5,6 +5,7 @@ import com.example.BookSocialNetwork.entities.BookTransactionHistory;
 import com.example.BookSocialNetwork.entities.Books;
 import com.example.BookSocialNetwork.entities.User;
 import com.example.BookSocialNetwork.exception.OperationNotPermittedException;
+import com.example.BookSocialNetwork.file.FileStorageService;
 import com.example.BookSocialNetwork.model.*;
 import com.example.BookSocialNetwork.repository.BookRepository;
 import com.example.BookSocialNetwork.repository.BookTransactionHistoryRepository;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +29,7 @@ public class BookService {
     private final BookMapper bookMapper;
     private final BookRepository bookRepo;
     private final BookTransactionHistoryRepository historyRepository;
+    private final FileStorageService fileStorageService;
 
     public Integer save(BookRequest request, Authentication connectedUser) {
         return null;
@@ -47,8 +50,8 @@ public class BookService {
         List<BookResponse> bookResponse = books.stream().map(bookMapper::toBookResponse).toList();
         return new PageResponse<>(
                 bookResponse,
-                books.getNumber()
-                ,books.getSize(),
+                books.getNumber(),
+                books.getSize(),
                 books.getTotalElements(),
                 books.getTotalPages(),
                 books.isFirst(),
@@ -191,4 +194,15 @@ public class BookService {
         return historyRepository.save(bookTransactionHistory).getId();
 
     }
+
+
+    public void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer bookId) {
+        Books book =bookRepo.findById(bookId).orElseThrow(() -> new EntityNotFoundException("No book found with the ID:: "+bookId));
+        User user = (User) connectedUser.getPrincipal();
+
+        var bookCover = fileStorageService.saveFile(file,user.getUserId());
+        book.setBookCover(bookCover);
+        bookRepo.save(book);
+    }
+
 }

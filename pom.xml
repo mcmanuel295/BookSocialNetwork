@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>BookSocialNetwork</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>BookSocialNetwork</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
@@ -81,7 +81,6 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-            <version>1.18.36</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -137,7 +136,7 @@
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</path>
-					</annotationProcessorPaths>
+					bok</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 			<plugin>
