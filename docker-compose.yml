@@ -1,0 +1,15 @@
+services:
+  BookSocialNetwork:
+    container_name: BSN
+    networks:
+      - bsn-Network
+    volumes:
+      - vol:var/lib/
+  Database:
+
+networks:
+  - bsn-Network:
+      driver: bridge
+
+volumes:
+  
