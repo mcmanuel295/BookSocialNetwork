@@ -20,7 +20,7 @@ import java.util.function.Function;
 @Slf4j
 public class FileStorageService {
     @Value("${application.file.upload.photos-output-path}")
-    private final String fileUploadPath ;
+    private String fileUploadPath ;
 
     public String saveFile(@NotNull MultipartFile sourceFile, @NotNull Integer userId) {
         final String fileUploadSubPath= "users"+ File.separator+ userId;
