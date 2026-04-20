@@ -36,7 +36,9 @@ jobs:
     needs: [compile]
     steps:
       - name : extract the version
-        run: ./mvnw clean package -DskipTests
+        run: |
+          chmod +x ./mvnw
+          ./mvnw clean package -DskipTests
     
   build_image:
     name: login and build the image docker
