@@ -23,7 +23,10 @@ jobs:
         with:
          java-version: 21
          distribution: 'corretto'
-         
+
+      - name: Make mvnw executable
+        run: chmod +x ./mvnw
+
       - name: compile the code
         run: ./mvnw clean compile
       
