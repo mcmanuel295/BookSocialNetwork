@@ -25,7 +25,7 @@ jobs:
          distribution: 'corretto'
          
       - name: compile the code
-        run: ./mvnw clean compile -DskipTests
+        run: ./mvnw clean compile
       
   build_jar:
     name: build the jar file
@@ -33,7 +33,7 @@ jobs:
     needs: [compile]
     steps:
       - name : extract the version
-        run: ./mvn clean package -DskipTests
+        run: ./mvnw clean package -DskipTests
     
   build_image:
     name: login and build the image docker
