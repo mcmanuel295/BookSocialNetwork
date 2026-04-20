@@ -5,7 +5,7 @@ on:
     paths:
       - "docker-compose.yml"
       - "Dockerfile"
-      - BookSocialNetwork/src/**
+      - src/**
       - .github/workflows/pipeline.yml
    
 jobs:
@@ -25,7 +25,7 @@ jobs:
          distribution: 'corretto'
          
       - name: compile the code
-        run: mvn clean compile -DskipTests
+        run: ./mvnw clean compile -DskipTests
       
   build_jar:
     name: build the jar file
@@ -41,14 +41,24 @@ jobs:
     needs: [build_jar]
     steps:
       - name: extract the project version
+        id: extract_docker
         run: |
-         echo "VERSION : $(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' exec:exec)">> GITHUB_OUTPUT
+         echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
 
       - name : login
         uses: docker/login-action@v4.1.0
         with:
           username: ${{secrets.DOCKER_USERNAME}}
-          password: ${{secrets.DOCKER.PASSWORD}}
+          password: ${{secrets.DOCKER.TOKEN}}
 
-      - name : build docker
-        uses:
+      - name : build image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: true
+          platform: linux/amd64
+          tag: ${{secrets.DOCKER_USERNAME}}/bsn:${{steps.extract.outputs.VERSION}} ,
+               ${{secrets.DOCKER_USERNAME}}/bsn:latest
+
+
+      
