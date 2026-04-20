@@ -5,7 +5,7 @@ on:
     paths:
       - "docker-compose.yml"
       - "Dockerfile"
-      - BookSocialNetwork/**
+      - BookSocialNetwork/src/**
       - .github/workflows/pipeline.yml
    
 jobs:
