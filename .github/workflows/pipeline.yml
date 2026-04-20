@@ -1,0 +1,33 @@
+name: bsn_pipeline
+on:
+  push: 
+    branches: main
+    paths:
+      - "docker-compose.yml"
+      - "Dockerfile"
+      - BookSocialNetwork/**
+      - .github/workflows/pipeline.yml
+   
+jobs:
+  compile:
+    name: compile the project
+    runs-on: ubuntu-slim
+    steps:
+      - name: checkout the code
+        uses: actions/checkout@v6.0.2
+        with:
+          fetch-depth : 0
+          
+      - name: setup jdk
+        uses: actions/setup-java@v5.2.0
+        with:
+         java-version: 21
+         distribution: 'corretto'
+              
+  build jar:
+    name: build the jar file
+    needs: compile
+    
+  build image:
+  deploy:
+     

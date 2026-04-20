@@ -1,15 +1,30 @@
 services:
   BookSocialNetwork:
     container_name: BSN
+    image: mcmanuel/bsn-1.0.0
     networks:
       - bsn-Network
-    volumes:
-      - vol:var/lib/
+    ports:
+      - 8080:8080
+
   Database:
+    container_name: db
+    image: mysql
+    networks:
+      - bsn-Network
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_USER : root
+      - MYSQL_PASSWORD: Oea75357@
+    volumes:
+      - vol:var/lib/data
 
 networks:
   - bsn-Network:
       driver: bridge
 
 volumes:
+  - vol:
+      driver: local
   
