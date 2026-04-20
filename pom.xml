@@ -136,7 +136,7 @@
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</path>
-					bok</annotationProcessorPaths>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 			<plugin>
