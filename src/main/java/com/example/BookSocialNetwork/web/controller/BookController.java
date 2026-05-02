@@ -1,10 +1,10 @@
-package com.example.BookSocialNetwork.controller;
+package com.example.BookSocialNetwork.web.controller;
 
 import com.example.BookSocialNetwork.book.BorrowedBookResponse;
 import com.example.BookSocialNetwork.model.BookRequest;
 import com.example.BookSocialNetwork.model.BookResponse;
 import com.example.BookSocialNetwork.model.PageResponse;
-import com.example.BookSocialNetwork.service.BookService;
+import com.example.BookSocialNetwork.domain.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

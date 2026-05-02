@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.service;
+package com.example.BookSocialNetwork.domain.service;
 
 import com.example.BookSocialNetwork.model.EmailTemplateName;
 import jakarta.mail.MessagingException;

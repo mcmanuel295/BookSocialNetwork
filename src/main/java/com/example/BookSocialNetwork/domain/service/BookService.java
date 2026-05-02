@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.service;
+package com.example.BookSocialNetwork.domain.service;
 
 import com.example.BookSocialNetwork.book.BorrowedBookResponse;
 import com.example.BookSocialNetwork.entities.BookTransactionHistory;
@@ -7,8 +7,8 @@ import com.example.BookSocialNetwork.entities.User;
 import com.example.BookSocialNetwork.exception.OperationNotPermittedException;
 import com.example.BookSocialNetwork.file.FileStorageService;
 import com.example.BookSocialNetwork.model.*;
-import com.example.BookSocialNetwork.repository.BookRepository;
-import com.example.BookSocialNetwork.repository.BookTransactionHistoryRepository;
+import com.example.BookSocialNetwork.domain.repository.BookRepository;
+import com.example.BookSocialNetwork.domain.repository.BookTransactionHistoryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

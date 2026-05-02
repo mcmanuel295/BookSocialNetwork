@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.service;
+package com.example.BookSocialNetwork.domain.service;
 
 import com.example.BookSocialNetwork.exception.TokenNotFoundException;
 import com.example.BookSocialNetwork.exception.UserNotFoundException;
@@ -8,9 +8,9 @@ import com.example.BookSocialNetwork.model.EmailTemplateName;
 import com.example.BookSocialNetwork.model.RegistrationRequest;
 import com.example.BookSocialNetwork.entities.Token;
 import com.example.BookSocialNetwork.entities.User;
-import com.example.BookSocialNetwork.repository.RoleRepository;
-import com.example.BookSocialNetwork.repository.TokenRepository;
-import com.example.BookSocialNetwork.repository.UserRepository;
+import com.example.BookSocialNetwork.domain.repository.RoleRepository;
+import com.example.BookSocialNetwork.domain.repository.TokenRepository;
+import com.example.BookSocialNetwork.domain.repository.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

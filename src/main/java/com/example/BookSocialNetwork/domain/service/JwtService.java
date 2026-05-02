@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.service;
+package com.example.BookSocialNetwork.domain.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

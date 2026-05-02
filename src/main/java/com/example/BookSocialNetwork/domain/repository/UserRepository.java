@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.repository;
+package com.example.BookSocialNetwork.domain.repository;
 
 import com.example.BookSocialNetwork.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.repository;
+package com.example.BookSocialNetwork.domain.repository;
 
 import com.example.BookSocialNetwork.entities.Books;
 import org.springframework.data.domain.Page;

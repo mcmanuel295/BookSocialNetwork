@@ -1,13 +1,12 @@
 package com.example.BookSocialNetwork;
 
 import com.example.BookSocialNetwork.entities.Role;
-import com.example.BookSocialNetwork.repository.RoleRepository;
+import com.example.BookSocialNetwork.domain.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
 
