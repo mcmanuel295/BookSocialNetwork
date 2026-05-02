@@ -3,7 +3,6 @@ package com.example.BookSocialNetwork.web;
 import com.example.BookSocialNetwork.model.AuthenticationRequest;
 import com.example.BookSocialNetwork.model.AuthenticationResponse;
 import com.example.BookSocialNetwork.model.RegistrationRequest;
-import com.example.BookSocialNetwork.service.AuthenticationService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

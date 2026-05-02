@@ -1,4 +1,5 @@
-package com.example.BookSocialNetwork.entities;
+package com.example.BookSocialNetwork.domain.bookTransactionHistory
+        ;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -11,36 +12,27 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-@EntityListeners(AuditingEntityListener.class)
+@Entity
 @Getter
 @Setter
-@Entity
+@EntityListeners(AuditingEntityListener.class)
 @Builder
-public class Books {
-    @Id
+public class BookTransactionHistory {
     @GeneratedValue
     private Integer id;
 
-    private String title;
-    private String authorName;
-    private String isbn;
-    private String synopsis;
-    private String bookCover;
-    private boolean archived;
-    private boolean shareable;
+    @ManyToOne
+    @JoinColumn(name ="user_id")
+    private User user;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
+    @JoinColumn(name ="book_id")
+    private Books book;
 
-    @OneToMany(mappedBy = "book")
-    private List<FeedBack> feedBacks;
 
-    @OneToMany(mappedBy = "book")
-    private List<BookTransactionHistory> histories;
-
+    private boolean returned;
+    private boolean returnApproved;
 
     @CreatedDate
     @Column(nullable = false,updatable = false)
@@ -58,15 +50,4 @@ public class Books {
     @Column(insertable = false)
     private Integer lastModifiedBy;
 
-    @Transient
-    public double getRate(){
-        if (feedBacks ==null || feedBacks.isEmpty()){
-            return 0.0;
-        }
-        feedBacks.stream()
-                .mapToDouble(FeedBack::getNote)
-                .average()
-                .orElse(0.0);
-        return Math.round(getRate()*10.0) /10.0;
-    }
 }
