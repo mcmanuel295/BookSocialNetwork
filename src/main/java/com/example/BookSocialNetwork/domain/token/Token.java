@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.entities;
+package com.example.BookSocialNetwork.domain.token;
 
 
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.entities;
+package com.example.BookSocialNetwork.domain.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
