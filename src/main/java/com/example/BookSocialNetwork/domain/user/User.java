@@ -1,5 +1,8 @@
 package com.example.BookSocialNetwork.domain.user;
 
+import com.example.BookSocialNetwork.domain.book.Books;
+import com.example.BookSocialNetwork.domain.bookTransactionHistory.BookTransactionHistory;
+import com.example.BookSocialNetwork.domain.role.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;

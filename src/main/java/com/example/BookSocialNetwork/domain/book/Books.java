@@ -1,5 +1,8 @@
 package com.example.BookSocialNetwork.domain.book;
 
+import com.example.BookSocialNetwork.domain.bookTransactionHistory.BookTransactionHistory;
+import com.example.BookSocialNetwork.domain.user.User;
+import com.example.BookSocialNetwork.entities.FeedBack;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

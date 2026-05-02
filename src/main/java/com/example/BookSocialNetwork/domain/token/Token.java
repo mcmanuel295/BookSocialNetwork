@@ -1,6 +1,7 @@
 package com.example.BookSocialNetwork.domain.token;
 
 
+import com.example.BookSocialNetwork.domain.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
