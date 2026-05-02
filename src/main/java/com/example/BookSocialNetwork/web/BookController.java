@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.web.controller;
+package com.example.BookSocialNetwork.web;
 
 import com.example.BookSocialNetwork.book.BorrowedBookResponse;
 import com.example.BookSocialNetwork.model.BookRequest;

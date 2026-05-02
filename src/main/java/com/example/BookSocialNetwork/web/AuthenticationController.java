@@ -1,4 +1,4 @@
-package com.example.BookSocialNetwork.web.controller;
+package com.example.BookSocialNetwork.web;
 
 import com.example.BookSocialNetwork.model.AuthenticationRequest;
 import com.example.BookSocialNetwork.model.AuthenticationResponse;
