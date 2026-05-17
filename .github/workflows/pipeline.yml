@@ -1,7 +1,8 @@
 name: bsn_pipeline
 on:
   push: 
-    branches: main
+    branches:
+    - main
     paths:
       - "docker-compose.yml"
       - "Dockerfile"
@@ -29,7 +30,8 @@ jobs:
 
       - name: compile the code
         run: ./mvnw clean compile
-      
+
+
   build_jar:
     name: build the jar file
     runs-on: ubuntu-slim
@@ -40,6 +42,7 @@ jobs:
           chmod +x ./mvnw
           ./mvnw clean package -DskipTests
     
+
   build_image:
     name: login and build the image docker
     runs-on: ubuntu-slim
