@@ -62,7 +62,7 @@ jobs:
       - name : build image
         uses: docker/build-push-action@v7
         with:
-          context: .git status
+          context: .
           push: true
           platform: linux/amd64
           tag: ${{secrets.DOCKER_USERNAME}}/bsn:${{steps.extract.outputs.VERSION}} ,
